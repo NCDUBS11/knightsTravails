@@ -1,14 +1,14 @@
 {
-  "name": "dyn_ui_elements",
+  "name": "Knights Travails",
   "version": "1.0.0",
-  "description": "Set of JS modules used with dyanic UI elements",
+  "description": "The Odin Project's Knight's Travails Project",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.prod.js",
     "dev": "webpack serve --open --config webpack.dev.js",
-    "ghPagesBranch":"git checkout -b gh-pages && git merge main --no-edit",
-    "preDeploy":"git add dist -f && git commit -m 'Initial deployment commit'",
+    "ghPagesBranch": "git checkout -b gh-pages && git merge main --no-edit",
+    "preDeploy": "git add dist -f && git commit -m 'Initial deployment commit'",
     "deploy": "git subtree push --prefix dist origin gh-pages",
     "eslint": "npx eslint src/index.js",
     "prettyCheck": "npx prettier . --check",
