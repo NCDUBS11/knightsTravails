@@ -1,16 +1,15 @@
 /* @import here */
 
 :root {
-    /*Example: --bg-color: #faebd7; */
+  --bg-color: hsl(#2f2b2b);
+}
 
-  }
-  
-  * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    text-decoration: none;
-    list-style: none;
-    font-size: var(--fs-reg);
-    color: var(--fc-std);
-  }
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  font-size: var(--fs-reg);
+  color: var(--fc-std);
+}
