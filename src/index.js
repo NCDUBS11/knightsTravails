@@ -1,33 +1,6 @@
-// import "./styles.css";
-//import { function name } from "./jsFile";
-//import odinImage from "./odin.png";
-
 if (process.env.NODE_ENV !== "production") {
   console.log("Looks like we are in development mode!");
 }
-
-/*
-knightMoves() will calculate the minimum path of travel
-between a specified start and end point on a chess board.
-The start point, end point and any other board spaces are 
-nodes/vertices containing a [row, col]. Both values must be between 1-8.
-
-The chess board doesn't actually need to exist as the function can 
-just run through all possible moves until a base case is met or the 
-specified end value is matched. In this function, the base case would
-trigger when either the row or column value exceeds the specified bounds.
-
-Knight may travel in only two sequences: [1,2] or [2,1].
-This ends in 8 possible locations (relative to start) for the piece after each move:
-Up -> /left[-1,2] or /right[1,2]
-Right -> /up[2,1] or /down[2,-1]
-Down -> /left[-1,-2] or /right[1,-2]
-Left -> /up[-2, 1] or /down[-2,-1]
-
-Each 'stop' along the path of travel needs to be saved and returned upon finding
-the end target. eg: knightMoves([0,0],[3,3]) == [[0,0],[2,1],[3,3]].
-Multiple 'shortest' paths may be found.
-*/
 
 //stores x and y board coordinates and records parent value.
 
@@ -49,6 +22,13 @@ function pathHistory(node) {
   return history;
 }
 
+// Knight may travel in only two sequences: +/- [1,2] or +/- [2,1].
+// This ends in 8 possible locations (relative to start) for the piece after each move:
+// Up -> /left[-1,2] or /right[1,2]
+// Right -> /up[2,1] or /down[2,-1]
+// Down -> /left[-1,-2] or /right[1,-2]
+// Left -> /up[-2, 1] or /down[-2,-1]
+
 function updateNodes(node) {
   const nodeList = [
     [node.x + 2, node.y + 1],
@@ -67,11 +47,30 @@ function updateNodes(node) {
   return updatedList;
 }
 
+function isValid(node) {
+  if (node.x >= 1 && node.x <= 8 && node.y >= 1 && node.y <= 8) {
+    return true;
+  }
+  return false;
+}
+
 function knightMoves(start, end) {
   const startNode = new Node(start[0], start[1]);
   const endNode = new Node(end[0], end[1]);
 
-  let queue = [start];
+  if (!isValid(startNode)) {
+    throw new Error(
+      "invalid range provided for start node. Must be a value between 1 and 8.",
+    );
+  }
+
+  if (!isValid(endNode)) {
+    throw new Error(
+      "invalid range provided for start node. Must be a value between 1 and 8.",
+    );
+  }
+
+  let queue = [startNode];
   let visited = new Set();
 
   visited.add(`${startNode.x},${startNode.y}`);
@@ -80,7 +79,14 @@ function knightMoves(start, end) {
     const currentNode = queue.shift();
 
     if (currentNode.x === endNode.x && currentNode.y === endNode.y) {
-      return pathHistory(currentNode);
+      const path = pathHistory(currentNode);
+      console.log(
+        `You made it in ${path.length - 1} moves!\n Here is your path:`,
+      );
+      path.forEach((step) => {
+        console.log(step);
+      });
+      return path;
     }
 
     const newNodeGroup = updateNodes(currentNode);
@@ -96,4 +102,4 @@ function knightMoves(start, end) {
   }
 }
 
-knightMoves([1, 1], [3, 2]);
+console.log(knightMoves([3, 3], [4, 3]));
